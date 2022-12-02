@@ -11,7 +11,7 @@
  * final: print answers
  */
 
-const val INPUT_FILE_NAME = "day-01/input.txt"
+const val INPUT_FILE_NAME = "day01/input.txt
 
 fun main() {
 
