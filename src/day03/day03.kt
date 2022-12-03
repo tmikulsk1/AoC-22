@@ -3,10 +3,8 @@ package day03
 import readInput
 
 /**
- * Advent of Code 2022
- * Day 1 / Puzzle 1
+ * Advent of Code 2022 - Day 3
  * @author tmikulsk1
- *
  */
 
 fun main() {
