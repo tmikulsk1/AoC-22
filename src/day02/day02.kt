@@ -21,7 +21,7 @@ import readInput
  */
 
 fun main() {
-    val inputGame = readInput("day02/input2.txt").readLines()
+    val inputGame = readInput("day02/input.txt").readLines()
 
     getPuzzle1TotalScore(inputGame)
     getPuzzle2TotalScore(inputGame)
@@ -55,31 +55,48 @@ fun sumTotalScore(matches: List<HashMap<Int, Int>>): Int {
 
         val opponentValue = match.keys.first()
         val ownValue = match.values.first()
+        val earningPoint = getEarningPoint(opponentValue, ownValue)
 
-        if (opponentValue == ownValue) {
-            score += DRAW_EARNING_POINT + ownValue
-            return@forEachIndexed
-        }
-
-        if ((opponentValue == ROCK_POINT_VALUE && ownValue == PAPER_POINT_VALUE) ||
-            (opponentValue == PAPER_POINT_VALUE && ownValue == SCISSOR_POINT_VALUE) ||
-            (opponentValue == SCISSOR_POINT_VALUE && ownValue == ROCK_POINT_VALUE)
-        ) {
-            score += WIN_EARNING_POINT + ownValue
-            return@forEachIndexed
-
-        }
-
-        if ((opponentValue == ROCK_POINT_VALUE && ownValue == SCISSOR_POINT_VALUE) ||
-            (opponentValue == PAPER_POINT_VALUE && ownValue == ROCK_POINT_VALUE) ||
-            (opponentValue == SCISSOR_POINT_VALUE && ownValue == PAPER_POINT_VALUE)
-        ) {
-            score += ownValue
-            return@forEachIndexed
-
-        }
+        score += earningPoint + ownValue
     }
     return score
+}
+
+/**
+ * When next (from opponent) in circular list from Paper, Rock & Scissor logic is
+ * equals with my own value, opponent wins
+ *
+ * When both values are equal, is a draw
+ *
+ * When next (from opponent) in circular list from Paper, Rock & Scissor logic is
+ * difference with my own value, I win
+ */
+fun getEarningPoint(opponentValue: Int, ownValue: Int): Int {
+    val next = getNextValueInCircularCycle(opponentValue)
+    return if (opponentValue == ownValue) {
+        // WE DRAW
+        DRAW_EARNING_POINT
+    } else if (next == ownValue) {
+        // I WON
+        WIN_EARNING_POINT
+    } else {
+        // I LOST
+        DEFAULT_VALUE
+    }
+}
+
+/**
+ * Return the value from the circular list in Paper, Rock & Scissor sequence
+ */
+fun getNextValueInCircularCycle(opponentValue: Int): Int {
+    val cycle = listOf(ROCK_POINT_VALUE, PAPER_POINT_VALUE, SCISSOR_POINT_VALUE)
+
+    val index = cycle.indexOf(opponentValue)
+    return if (cycle.size - 1 == index) {
+        cycle[0]
+    } else {
+        cycle[index + 1]
+    }
 }
 
 /**
