@@ -8,23 +8,57 @@ import readInput
  */
 
 fun main() {
-
     val inputRucksacks = readInput("day03/input.txt").readLines()
 
     getPuzzle1PriorityRucksacks(inputRucksacks)
+    getPuzzle2PriorityRucksacks(inputRucksacks)
 }
 
 /**
- * Puzzle 1: show priority rucksacks
+ * Puzzle 1: show priority from half grouped rucksacks
  */
 fun getPuzzle1PriorityRucksacks(inputRucksacks: List<String>) {
     val alphabetList = getAlphabetLowerAndUpperCaseList()
-    val prioritySum = getRucksackPrioritySum(inputRucksacks, alphabetList)
+    val prioritySum = getRucksackSplitInInHalfPrioritySum(inputRucksacks, alphabetList)
 
     println(prioritySum)
 }
 
-fun getRucksackPrioritySum(
+/**
+ * Puzzle 2: show priority third grouped rucksacks
+ */
+fun getPuzzle2PriorityRucksacks(inputRucksacks: List<String>) {
+    val alphabetList = getAlphabetLowerAndUpperCaseList()
+    val rucksacks = separateRucksackByThree(inputRucksacks)
+    val prioritySum = getRucksackSplitInThirdPrioritySum(rucksacks, alphabetList)
+
+    println(prioritySum)
+}
+
+fun getRucksackSplitInThirdPrioritySum(
+    inputRucksacks: List<List<String>>,
+    alphabetList: List<Char>
+): Int {
+    var prioritySum = 0
+
+    inputRucksacks.forEach { threeRuckSacks ->
+        val firstRucksackPart = threeRuckSacks[0].toHashSet()
+        val secondRucksackPart = threeRuckSacks[1].toHashSet()
+        val thirdRucksackPart = threeRuckSacks[2].toHashSet()
+
+        val commonLetter = firstRucksackPart intersect secondRucksackPart intersect thirdRucksackPart
+        val index = alphabetList.indexOf(commonLetter.first())
+
+        prioritySum += index + 1
+    }
+
+    return prioritySum
+}
+
+fun separateRucksackByThree(inputRucksacks: List<String>): List<List<String>> =
+    inputRucksacks.chunked(3)
+
+fun getRucksackSplitInInHalfPrioritySum(
     inputRucksacks: List<String>,
     alphabetList: List<Char>
 ): Int {
