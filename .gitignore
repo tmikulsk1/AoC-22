@@ -1,6 +1,5 @@
 .gradle
 .idea
 build
-src/**/*.txt
 */.DS_Store
 .DS_Store

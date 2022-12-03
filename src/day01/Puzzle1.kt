@@ -1,3 +1,7 @@
+package day01
+
+import readInput
+
 /**
  * Advent of Code 2022
  * Day 1 / Puzzle 1
@@ -11,7 +15,7 @@
  * final: print answers
  */
 
-const val INPUT_FILE_NAME = "day01/input.txt
+const val INPUT_FILE_NAME = "day01/input.txt"
 
 fun main() {
 
