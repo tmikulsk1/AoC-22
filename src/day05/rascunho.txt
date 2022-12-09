@@ -1,0 +1,77 @@
+    [D]
+[N] [C]
+[Z] [M] [P]
+ 1   2   3
+
+move 1 from 2 to 1
+move 3 from 1 to 3
+move 2 from 2 to 1
+
+[D]
+[N] [C]
+[Z] [M] [P]
+ 1   2   3
+
+
+         [Z]
+         [N]
+     [C] [D]
+     [M] [P]
+  1   2   3
+
+          [Z]
+          [N]
+  [M]     [D]
+  [C]     [P]
+   1   2   3
+
+
+           [Z]
+           [N]
+           [D]
+   [C] [M] [P]
+    1   2   3
+
+
+
+
+
+    ////
+
+        [D]
+    [N] [C]
+    [Z] [M] [P]
+     1   2   3
+
+    move 1 from 2 to 1
+    move 3 from 1 to 3
+    move 2 from 2 to 1
+
+
+    Moving a single crate from stack 2 to stack 1 behaves the same as before:
+
+    [D]
+    [N] [C]
+    [Z] [M] [P]
+     1   2   3
+    However, the action of moving three crates from stack 1 to stack 3 means that those three moved crates stay in the same order, resulting in this new configuration:
+
+            [D]
+            [N]
+        [C] [Z]
+        [M] [P]
+     1   2   3
+    Next, as both crates are moved from stack 2 to stack 1, they retain their order as well:
+
+            [D]
+            [N]
+    [C]     [Z]
+    [M]     [P]
+     1   2   3
+    Finally, a single crate is still moved from stack 1 to stack 2, but now it's crate C that gets moved:
+
+            [D]
+            [N]
+            [Z]
+    [M] [C] [P]
+     1   2   3
